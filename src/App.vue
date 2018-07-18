@@ -1,11 +1,11 @@
 <template>
-  <router-view></router-view>
+  <transition name="scale">
+    <router-view></router-view>
+  </transition>
 </template>
 
 <script>
 
 </script>
 
-<style>
-
-</style>
+<style src="./assets/todonotodo.css"></style>
