@@ -28,16 +28,11 @@
     },
     methods: {
       register: function () {
-        this.$http.post('http://localhost:5959/users/signup', this.user)
+        this.$http.post('/users/signup', this.user)
           .then(function (res) {
             alertify.success("Signup successful!");
             this.$router.push('/auth/login');
-          })
-          .catch(function (res) {
-            if(res.status == 400 || res.status == 500) {
-              alertify.error(res.body.message)
-            }
-          })
+          });
       }
     }
   }
