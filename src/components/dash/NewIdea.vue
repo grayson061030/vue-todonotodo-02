@@ -1,7 +1,5 @@
 <template>
-    <div>
-      <h1>New Idea</h1>
-    </div>
+
 </template>
 
 <script>

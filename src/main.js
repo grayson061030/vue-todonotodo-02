@@ -28,7 +28,7 @@ Vue.http.interceptors.push(function (request, next) {
     }
   });
 });
-// 라우팅 전 체크
+// before routing check authentication
 Router.beforeEach(function (to, from, next) {
   if(to.matched.some(function (record) {return record.meta.requiresGuest}) && Vue.auth.loggedIn()){
     next({path: '/newidea'});
