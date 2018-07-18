@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3 class="text-center">Login</h3>
-    <input type="text" class="form-control m-b-15" placeholder="email address"
+    <input type="email" class="form-control m-b-15"placeholder="email address"
            v-model="user.email">
     <input type="password" class="form-control" placeholder="password"
            v-model="user.password">

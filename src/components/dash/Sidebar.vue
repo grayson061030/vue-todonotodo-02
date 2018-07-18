@@ -10,11 +10,15 @@
           <a href="#" class="btn btn-block btn-default"><i class="fa fa-newspaper-o"></i> Ideas</a>
         </div>
       </div>
-
+      <div class="form-group row">
+        <div class="m-t-20 m-b-20">
+          <input class="form-control" type="text" placeholder="Idea's Title" v-model="newIdea.title">
+        </div>
+      </div>
       <div class="ideaNowWrap m-t-20 m-b-20">
       <textarea rows="10" class="form-control" placeholder="Start writing your idea here!" maxlength="400"
-        v-model="newIdea"></textarea>
-        <p class="text-muted">{{400 - newIdea.length}} character{{400 - newIdea.length == 1 ? '' : 's'}} remaining</p>
+        v-model="newIdea.description"></textarea>
+        <p class="text-muted">{{400 - newIdea.description.length}} character{{400 - newIdea.description.length == 1 ? '' : 's'}} remaining</p>
         <p class="text-center no-margin"><button class="btn btn-primary">Publish Now!</button></p>
       </div>
 
@@ -42,7 +46,10 @@
     data: function () {
       return {
         user: {},
-        newIdea: ''
+        newIdea: {
+          title: '',
+          description: ''
+        }
       }
     },
     methods: {
