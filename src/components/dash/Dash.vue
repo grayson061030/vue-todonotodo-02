@@ -30,9 +30,9 @@
   #dashWrap {
     min-height: 100%;
     padding-top: 50px;
-    background: #42275a;
-    background: -webkit-linear-gradient(to left, #42275a, #734b6d);
-    background: linear-gradient(to left, #42275a, #734b6d);
+    background: #81d4ff;
+    background: -webkit-linear-gradient(to bottom, #81d4ff, #edc5ed);
+    background: linear-gradient(to bottom, #81d4ff, #edc5ed);
   }
   .mainView {
     background: #fff;
