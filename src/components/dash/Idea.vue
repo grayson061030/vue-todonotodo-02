@@ -8,20 +8,20 @@
       </div>
       <div class="col-xs-12">
         <router-link :to="'/profile/'+idea.user.username">@{{idea.user.username}}</router-link>
-        <strong class="text-muted">{{idea.title}}<br><br></strong>
-          <p class="description">
-            {{idea.description}}
-          </p>
+        <h4><strong class="text-muted"><router-link :to="''">{{idea.title}}</router-link><br><br></strong></h4>
+        <p class="description">
+          {{idea.description}}
+        </p>
       </div>
     </div>
     <div class="ideaFooter">
       <button class="btn" @click="likeIdea">
         <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-        {{idea.meta.up}}
+        {{idea.vote_up.length}}
       </button>
       <button class="btn" @click="likeIdea">
         <i class="fa fa-thumbs-down" aria-hidden="true"></i>
-        {{idea.meta.down}}
+        {{idea.vote_down.length}}
       </button>
       <strong class="pull-right">
         <i class="fa fa-calendar"></i> {{ideaDate(idea.created)}}
