@@ -1,26 +1,20 @@
 # todonotodo-web
+ 
+### Usage
+```sql
+  - install dependencies
+    npm install
+  - serve with hot reload at localhost:8080
+    npm run dev    
+  - build for production with minification
+    npm run build
+  - build for production and view the bundle analyzer report
+    npm run build --report  
+```
 
-> Vue based todonotodo-web project 
+### Relation Project Down below
+> > [todonotodo-api](https://github.com/Gavinkim/todonotodo-api)
 
-## Build Setup
+### Result
 
-
-### install mongodb
-mongodb start
-
-### todonotodo-api server run
-[todonotodo-api](https://github.com/Gavinkim/todonotodo-api)
-
-### install dependencies
-npm install
-
-### serve with hot reload at localhost:8080
-npm run dev
-
-### build for production with minification
-npm run build
-
-### build for production and view the bundle analyzer report
-npm run build --report
-
-
+> > ![Alt text](./docs/result.png)
