@@ -10,6 +10,7 @@ import NewIdea from './components/dash/NewIdea';
 Vue.use(VueRouter);
 
 var router = new VueRouter({
+  mode: 'history',
   routes: [
     {
       path:'/',
