@@ -3,7 +3,7 @@
     <div id="ideasWraper">
       <idea v-for="idea in ideas" :idea="idea"></idea>
     </div>
-    <div class="text-center" id="ideasLoading">
+    <div class="text-center" id="ideasLoading" v-show="ideasLoading">
       <i class="fa fa-spin fa-spinner"></i>
     </div>
   </div>
@@ -18,20 +18,46 @@
       },
       created: function () {
         this.ideas = [];
-        this.getIdeas();
+        this.getIdeas(1);
+        window.addEventListener('scroll',this.handleScroll);
+      },
+      destroyed: function() {
+        window.removeEventListener('scroll',this.handleScroll);
+      },
+      props: {
+        endpoint: {type: String, default: '/ideas'},
       },
       data: function () {
         return {
-          ideas: []
+          ideas: [],
+          page: {},
+          ideasLoading: false
+        }
+      },
+      watch: {
+        endpoint: function () {
+          this.ideas = [];
+          this.getIdeas();
         }
       },
       methods: {
-          getIdeas: function () {
-            this.$http.get('/ideas')
+          getIdeas: function (page) {
+            this.$http.get('/ideas?page='+page)
               .then(function (res) {
-                this.ideas = res.body;
-              })
+                this.ideas = this.ideas.concat(res.body.data);
+                this.page = {current: res.body.current_page, last: res.body.last_page};
+                this.ideasLoading = false
+              }).catch(function () {
+                this.ideasLoading = false;
+            })
+          },
+        handleScroll: function () {
+          if(document.body.scrollHeight - window.innerHeight - Math.round(window.pageYOffset) == 0) {
+            if(this.page.current < this.page.last) {
+              this.getIdeas(this.page.current + 1);
+            }
           }
+        }
       }
     }
 </script>
