@@ -15,15 +15,15 @@
       </div>
     </div>
     <div class="ideaFooter">
-      <button class="btn" @click="likeIdea">
+      <button class="btn" @click="likeIdea('UP')" :class="[idea.voted ? 'btn-primary' : 'btn-default']">
         <i class="fa fa-thumbs-up" aria-hidden="true"></i>
         {{idea.vote_up.length}}
       </button>
-      <button class="btn" @click="likeIdea">
+      <button class="btn" @click="likeIdea('DOWN')">
         <i class="fa fa-thumbs-down" aria-hidden="true"></i>
         {{idea.vote_down.length}}
       </button>
-      <button class="btn" @click="likeIdea">
+      <button class="btn" @click="">
         <i class="fa fa-comments" aria-hidden="true"></i>
         {{idea.comments.length}}
       </button>
@@ -43,8 +43,18 @@
       idea:{}
     },
     methods: {
-      likeIdea: function () {
-
+      likeIdea: function (vote) {
+        this.$http.get('/ideas/vote/'+this.idea._id+'/'+vote)
+          .then(function (res) {
+            //fixme: 본인이 투표한 버튼에 대해 구분 하도록 한다.
+            this.idea.vote_down = res.data.vote_down;
+            this.idea.vote_up = res.data.vote_up;
+            if(vote == 'UP'){
+              this.idea.voted = true;
+            }else{
+              this.idea.voted = false;
+            }
+          })
       },
       ideaDate: function (timestamp) {
         return moment(timestamp).format('YYYY-MM-DD');
