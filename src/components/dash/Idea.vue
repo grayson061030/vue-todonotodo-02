@@ -23,6 +23,10 @@
         <i class="fa fa-thumbs-down" aria-hidden="true"></i>
         {{idea.vote_down.length}}
       </button>
+      <button class="btn" @click="likeIdea">
+        <i class="fa fa-comments" aria-hidden="true"></i>
+        {{idea.comments.length}}
+      </button>
       <strong class="pull-right">
         <i class="fa fa-calendar"></i> {{ideaDate(idea.created)}}
         <i class="fa fa-clock-o"></i> {{ideaTime(idea.created)}}
