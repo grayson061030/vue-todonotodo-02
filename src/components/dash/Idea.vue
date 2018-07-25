@@ -2,12 +2,12 @@
   <div class="idea">
     <div class="row">
       <div class="col-xs-2 text-center">
-        <router-link :to="'/profile/'+idea.user.username">
+        <router-link :to="'/users/'+idea.user._id">
           <img :src="idea.user.thumbnail" class="img-circle no-margin">
         </router-link>
       </div>
       <div class="col-xs-12">
-        <router-link :to="'/profile/'+idea.user.username">@{{idea.user.username}}</router-link>
+        <router-link :to="'/users/'+idea.user._id">@{{idea.user.username}}</router-link>
         <h4><strong class="text-muted"><router-link :to="''">{{idea.title}}</router-link><br><br></strong></h4>
         <p class="description">
           {{idea.description}}
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+  //하나의 idea 정보
   import moment from 'moment';
   export default {
     name: "Idea",
@@ -46,14 +47,9 @@
       likeIdea: function (vote) {
         this.$http.get('/ideas/vote/'+this.idea._id+'/'+vote)
           .then(function (res) {
-            //fixme: 본인이 투표한 버튼에 대해 구분 하도록 한다.
             this.idea.vote_down = res.data.vote_down;
             this.idea.vote_up = res.data.vote_up;
-            if(vote == 'UP'){
-              this.idea.voted = true;
-            }else{
-              this.idea.voted = false;
-            }
+            //fixme: 본인이 투표한 버튼에 대해 구분 하도록 한다.
           })
       },
       ideaDate: function (timestamp) {

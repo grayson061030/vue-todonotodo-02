@@ -42,7 +42,7 @@
       },
       methods: {
           getIdeas: function (page) {
-            this.$http.get('/ideas?page='+page)
+            this.$http.get(this.endpoint+'?page='+page)
               .then(function (res) {
                 this.ideas = this.ideas.concat(res.body.data);
                 this.page = {current: res.body.current_page, last: res.body.last_page};

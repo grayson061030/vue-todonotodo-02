@@ -6,6 +6,7 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Dash from './components/dash/Dash';
 import NewIdea from './components/dash/NewIdea';
+import Profile from './components/dash/Profile';
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,10 @@ var router = new VueRouter({
           path: 'newidea',
           component: NewIdea,
           meta: {requiresAuth: true}
+        },
+        {
+          path: 'users/:user_id',
+          component: Profile
         }
       ]
     },
@@ -44,7 +49,7 @@ var router = new VueRouter({
     {
       path: '/admin',
       component: Admin,
-      redirect: '/auth/login'
+      // redirect: '/auth/login'
     }
   ]
 });
