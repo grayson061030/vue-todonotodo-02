@@ -15,11 +15,11 @@
       </div>
     </div>
     <div class="ideaFooter">
-      <button class="btn" @click="likeIdea('UP')" :class="[idea.voted ? 'btn-primary' : 'btn-default']">
+      <button class="btn" @click="voting('UP')" :class="[idea.voted ? 'btn-primary' : 'btn-default']">
         <i class="fa fa-thumbs-up" aria-hidden="true"></i>
         {{idea.vote_up.length}}
       </button>
-      <button class="btn" @click="likeIdea('DOWN')">
+      <button class="btn" @click="voting('DOWN')">
         <i class="fa fa-thumbs-down" aria-hidden="true"></i>
         {{idea.vote_down.length}}
       </button>
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-  //하나의 idea 정보
+  //fixme: 로그인 하지 않은 사용자에게 해당 리스트는 보여주도록한다. 다만 투표만 하지 못하도록 한다.
   import moment from 'moment';
   export default {
     name: "Idea",
@@ -45,7 +45,11 @@
       showUserInfo: {type: Boolean,default: true},
     },
     methods: {
-      likeIdea: function (vote) {
+      voting: function (vote) {
+        if(!this.$auth.loggedIn()) {
+          alertify.error("Please Login. If you want to do that!!")
+          return;
+        }
         this.$http.get('/ideas/vote/'+this.idea._id+'/'+vote)
           .then(function (res) {
             this.idea.vote_down = res.data.vote_down;

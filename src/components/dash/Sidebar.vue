@@ -1,5 +1,6 @@
 <template>
   <div id="sidebar" class="text-center">
+    <div v-if="loggedIn">
       <h4 class="text-center">@{{user.username}}</h4>
       <hr>
       <div class="row">
@@ -21,7 +22,7 @@
       </div>
       <div class="ideaNowWrap m-t-20 m-b-20">
       <textarea rows="10" class="form-control" placeholder="Start writing your idea here!" maxlength="400"
-        v-model="newIdea.description"></textarea>
+                v-model="newIdea.description"></textarea>
         <p class="text-muted">{{400 - newIdea.description.length}} character{{400 - newIdea.description.length == 1 ? '' : 's'}} remaining</p>
         <p class="text-center no-margin"><button class="btn btn-primary">Publish Now!</button></p>
       </div>
@@ -38,6 +39,15 @@
           </p>
         </div>
       </div>
+    </div>
+    <div v-if="!loggedIn">
+      <h3> 아이디어를 검증하세요</h3>
+      <p>객관적으로 아이디어만 평가해봅시다. 당신이 누구든, 아이디어만으로 당신을 보겠습니다. 당신의 제품을 살지 안살지 솔직한 생각을 들어보세요.</p>
+      <p class="text-center">
+        <router-link to="/auth/register" class="btn btn-primary btn-block">Register</router-link>
+        <router-link to="/auth/login" class="btn btn-default btn-block">Login</router-link>
+      </p>
+    </div>
   </div>
 </template>
 
@@ -45,7 +55,9 @@
   export default {
     name: "Sidebar",
     created: function() {
-      this.getUser();
+      if(this.loggedIn){
+        this.getUser();
+      }
     },
     data: function () {
       return {
@@ -53,7 +65,8 @@
         newIdea: {
           title: '',
           description: ''
-        }
+        },
+        loggedIn: this.$auth.loggedIn()
       }
     },
     methods: {
