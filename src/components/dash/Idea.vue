@@ -1,13 +1,13 @@
 <template>
   <div class="idea">
     <div class="row">
-      <div class="col-xs-2 text-center">
+      <div class="col-xs-2 text-center" v-show="showUserInfo">
         <router-link :to="'/users/'+idea.user._id">
           <img :src="idea.user.thumbnail" class="img-circle no-margin">
         </router-link>
       </div>
       <div class="col-xs-12">
-        <router-link :to="'/users/'+idea.user._id">@{{idea.user.username}}</router-link>
+        <router-link :to="'/users/'+idea.user._id" v-show="showUserInfo">@{{idea.user.username}}</router-link>
         <h4><strong class="text-muted"><router-link :to="''">{{idea.title}}</router-link><br><br></strong></h4>
         <p class="description">
           {{idea.description}}
@@ -41,7 +41,8 @@
   export default {
     name: "Idea",
     props: {
-      idea:{}
+      idea:{},
+      showUserInfo: {type: Boolean,default: true},
     },
     methods: {
       likeIdea: function (vote) {

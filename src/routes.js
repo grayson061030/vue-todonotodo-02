@@ -6,7 +6,7 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Dash from './components/dash/Dash';
 import NewIdea from './components/dash/NewIdea';
-import Profile from './components/dash/Profile';
+import UserIdeas from './components/dash/UserIdeas';
 
 Vue.use(VueRouter);
 
@@ -25,7 +25,7 @@ var router = new VueRouter({
         },
         {
           path: 'users/:user_id',
-          component: Profile
+          component: UserIdeas
         }
       ]
     },

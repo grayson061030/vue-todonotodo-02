@@ -5,17 +5,16 @@
       <h2 class="text-center">@{{user.username}}</h2>
       <hr>
       <p class="text-center m-b-20">user.about</p>
-      <idea-list :endpoint="'/ideas/users/'+$route.params.user_id"></idea-list>
+      <idea-list :endpoint="'/ideas/users/'+$route.params.user_id" :showUserInfo="false"></idea-list>
     </div>
   </div>
 </template>
 
 <script>
-  //유저의 프로파일 정보와 유저가 작성한 글 목록을 보여준다
   import IdeaList from './IdeaList';
 
     export default {
-        name: "Profile",
+        name: "UserIdeas",
         components: {
         IdeaList: IdeaList,
       },

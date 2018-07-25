@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="ideasWraper">
-      <idea v-for="idea in ideas" :idea="idea"></idea>
+      <idea v-for="idea in ideas" :idea="idea" :showUserInfo="showUserInfo"></idea>
     </div>
     <div class="text-center" id="ideasLoading" v-show="ideasLoading">
       <i class="fa fa-spin fa-spinner"></i>
@@ -26,6 +26,7 @@
       },
       props: {
         endpoint: {type: String, default: '/ideas'},
+        showUserInfo: {type: Boolean, default: true}
       },
       data: function () {
         return {
