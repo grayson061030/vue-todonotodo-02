@@ -4,10 +4,14 @@
       <hr>
       <div class="row">
         <div class="col-sm-6">
-          <a href="#" class="btn btn-block btn-default"><i class="fa fa-user"></i> Profile</a>
+          <router-link :to="'/users/' + user._id" class="btn btn-block btn-default">
+            <i class="fa fa-user"></i> Profile
+          </router-link>
         </div>
         <div class="col-sm-6">
-          <a href="#" class="btn btn-block btn-default"><i class="fa fa-newspaper-o"></i> Ideas</a>
+          <router-link to="/newidea" class="btn btn-block btn-default">
+            <i class="fa fa-newspaper-o"></i> Feed
+          </router-link>
         </div>
       </div>
       <div class="form-group row">
