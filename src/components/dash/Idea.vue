@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-xs-2 text-center" v-show="showUserInfo">
         <router-link :to="'/users/'+idea.user._id">
-          <img :src="idea.user.thumbnail" class="img-circle no-margin">
+          <img :src="idea.user.avatar" class="img-circle no-margin">
         </router-link>
       </div>
       <div class="col-xs-12">
@@ -36,7 +36,6 @@
 </template>
 
 <script>
-  //fixme: 로그인 하지 않은 사용자에게 해당 리스트는 보여주도록한다. 다만 투표만 하지 못하도록 한다.
   import moment from 'moment';
   export default {
     name: "Idea",
@@ -47,7 +46,7 @@
     methods: {
       voting: function (vote) {
         if(!this.$auth.loggedIn()) {
-          alertify.error("Please Login. If you want to do that!!")
+          alertify.error("로그인이 필요한 서비스 입니다.");
           return;
         }
         this.$http.get('/ideas/vote/'+this.idea._id+'/'+vote)

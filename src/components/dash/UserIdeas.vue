@@ -1,7 +1,7 @@
 <template>
   <div id="profile">
     <div>
-      <p class="text-center"><img :src="user.thumbnail" class="img-circle"></p>
+      <p class="text-center"><img :src="user.avatar" class="img-circle"></p>
       <h2 class="text-center">@{{user.username}}</h2>
       <hr>
       <p class="text-center m-b-20">user.about</p>

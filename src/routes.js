@@ -7,6 +7,7 @@ import Register from './components/auth/Register';
 import Dash from './components/dash/Dash';
 import NewIdea from './components/dash/NewIdea';
 import UserIdeas from './components/dash/UserIdeas';
+import Settings from './components/dash/Settings';
 
 Vue.use(VueRouter);
 
@@ -26,6 +27,11 @@ var router = new VueRouter({
         {
           path: 'users/:user_id',
           component: UserIdeas
+        },
+        {
+          path: 'settings',
+          component: Settings,
+          meta: {requiresAuth: true }
         }
       ]
     },

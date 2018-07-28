@@ -20,6 +20,7 @@
         this.ideas = [];
         this.getIdeas(1);
         window.addEventListener('scroll',this.handleScroll);
+        this.$root.$on('newIdea', this.handleNewIdea);
       },
       destroyed: function() {
         window.removeEventListener('scroll',this.handleScroll);
@@ -52,13 +53,18 @@
                 this.ideasLoading = false;
             })
           },
-        handleScroll: function () {
-          if(document.body.scrollHeight - window.innerHeight - Math.round(window.pageYOffset) == 0) {
-            if(this.page.current < this.page.last) {
-              this.getIdeas(this.page.current + 1);
+          handleScroll: function () {
+            if(document.body.scrollHeight - window.innerHeight - Math.round(window.pageYOffset) == 0) {
+              if(this.page.current < this.page.last) {
+                this.getIdeas(this.page.current + 1);
+              }
+            }
+          },
+          handleNewIdea: function (idea) {
+            if(!this.$route.params.user_id || this.$route.params.user_id == idea.user) {
+              this.ideas.unshift(idea);
             }
           }
-        }
       }
     }
 </script>

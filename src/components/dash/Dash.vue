@@ -19,9 +19,21 @@
   import Sidebar from './Sidebar';
 
     export default {
-        name: "Dash",
+      name: "Dash",
       components: {
           sidebar: Sidebar
+      },
+      created: function () {
+        if(this.$auth.loggedIn()){
+          this.$http.get('/users/me')
+            .then(function (res) {
+              this.$store.commit('setCurrentUser',res.body);
+            }).catch(function (res) {
+              this.$store.commit('clearCurrentUser');
+          });
+        }else{
+          this.$store.commit('clearCurrentUser');
+        }
       }
     }
 </script>
