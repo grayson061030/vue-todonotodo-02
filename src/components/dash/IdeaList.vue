@@ -61,7 +61,7 @@
             }
           },
           handleNewIdea: function (idea) {
-            if(!this.$route.params.user_id || this.$route.params.user_id == idea.user) {
+            if(!this.$route.params.user_id || this.$route.params.user_id == idea.user._id) {
               this.ideas.unshift(idea);
             }
           }
