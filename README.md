@@ -17,4 +17,17 @@
 
 ### Result
 
-> > ![Alt text](./docs/result.png)
+> Login
+> > ![Alt text](./docs/login.png)
+
+> Register
+> > ![Alt text](./docs/register.png)
+
+> Feed
+> > ![Alt text](docs/feeds.png)
+
+> UserFeed
+> > ![Alt text](docs/userfeed.png)
+
+> User Info Settings
+> > ![Alt text](./docs/settings.png)
