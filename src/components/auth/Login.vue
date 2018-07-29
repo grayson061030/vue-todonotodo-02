@@ -20,8 +20,8 @@
     data: function () {
       return {
         user: {
-          email: 'gavin@gavin.com',
-          password: 'gavin'
+          email: '',
+          password: ''
         }
       }
     },
