@@ -37,6 +37,7 @@
 
 <script>
   import moment from 'moment';
+  const SELF_VOTE = 2001;//본인 투표 상태/서버 리턴 값과 같음.
   export default {
     name: "Idea",
     props: {
@@ -51,9 +52,11 @@
         }
         this.$http.get('/ideas/vote/'+this.idea._id+'/'+vote)
           .then(function (res) {
-            this.idea.vote_down = res.data.vote_down;
-            this.idea.vote_up = res.data.vote_up;
-            //fixme: 본인이 투표한 버튼에 대해 구분 하도록 한다.
+            if(res.body != SELF_VOTE){
+              this.idea.vote_down = res.data.vote_down;
+              this.idea.vote_up = res.data.vote_up;
+              //fixme: 본인이 투표한 버튼에 대해 구분 하도록 한다.
+            }
           })
       },
       ideaDate: function (timestamp) {
