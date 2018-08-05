@@ -1,26 +1,23 @@
 <template>
   <div class="idea">
     <div class="row">
-      <div class="col-xs-2 text-center" v-show="showUserInfo">
+      <div class="col-xs-2 text-center">
         <router-link :to="'/users/'+idea.user._id">
           <img :src="idea.user.avatar" class="img-circle no-margin">
         </router-link>
       </div>
       <div class="col-xs-12">
-        <router-link :to="'/users/'+idea.user._id" v-show="showUserInfo">@{{idea.user.username}}</router-link>
-        <h4><strong class="text-muted">
-          <router-link :to="'idea/detail/'+idea._id">{{idea.title}}</router-link><br><br></strong></h4>
-        <p class="description">
-          {{idea.description}}
-        </p>
+        <router-link :to="''" v-show="">{{idea.user.username}}</router-link>
+        <h4><strong class="text-muted">{{idea.title}}<br><br></strong></h4>
+        <p class="description">{{idea.description}}</p>
       </div>
     </div>
     <div class="ideaFooter">
-      <button class="btn" @click="voting('UP')" :class="[idea.voted ? 'btn-primary' : 'btn-default']">
+      <button class="btn" @click="">
         <i class="fa fa-thumbs-up" aria-hidden="true"></i>
         {{idea.vote_up.length}}
       </button>
-      <button class="btn" @click="voting('DOWN')">
+      <button class="btn" @click="">
         <i class="fa fa-thumbs-down" aria-hidden="true"></i>
         {{idea.vote_down.length}}
       </button>
@@ -28,37 +25,68 @@
         <i class="fa fa-comments" aria-hidden="true"></i>
         {{idea.comments.length}}
       </button>
+      <button class="btn" @click="shareFacebook">
+        <i class="fa fa-facebook-square" aria-hidden="true"><strong> share</strong></i>
+      </button>
+      <button class="btn" @click="addComment">
+        <i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
+        add
+      </button>
       <strong class="pull-right">
         <i class="fa fa-calendar"></i> {{ideaDate(idea.created)}}
         <i class="fa fa-clock-o"></i> {{ideaTime(idea.created)}}
       </strong>
+    </div>
+    <div id="commentsWraper">
+    <comment></comment>
     </div>
   </div>
 </template>
 
 <script>
   import moment from 'moment';
-  const SELF_VOTE = 2001;//본인 투표 상태/서버 리턴 값과 같음.
+  import Comment from './Comments';
+
   export default {
-    name: "Idea",
-    props: {
-      idea:{},
-      showUserInfo: {type: Boolean,default: true},
+    name: "IdeaDetail",
+    components: {
+      comment: Comment,
+    },
+    created: function(){
+      this.getIdea();
+    },
+    data: function() {
+      return {
+        idea: {
+          comments: [],
+          created: '',
+          description:'',
+          status: 0,
+          title: '',
+          user:{},
+          vote_down:[],
+          vote_up:[],
+          _id:''
+        }
+      }
+    },
+    watch: {
+      $route: 'getIdea'
     },
     methods: {
-      voting: function (vote) {
-        if(!this.$auth.loggedIn()) {
-          alertify.error("로그인이 필요한 서비스 입니다.");
-          return;
-        }
-        this.$http.get('/ideas/vote/'+this.idea._id+'/'+vote)
+      getIdea: function () {
+        this.$http.get('/ideas/'+this.$route.params.idea_id)
           .then(function (res) {
-            if(res.body != SELF_VOTE){
-              this.idea.vote_down = res.data.vote_down;
-              this.idea.vote_up = res.data.vote_up;
-              //fixme: 본인이 투표한 버튼에 대해 구분 하도록 한다.
-            }
+            this.idea = res.body;
           })
+      },
+      shareFacebook: function(){
+        //TODO: 페이스북 타임라인 공유
+        alertify.success('Shared to your facebook timeline!')
+      },
+      addComment: function(){
+        //Todo: 댓글용 모달 추가.
+        alertify.success('added your comments!')
       },
       ideaDate: function (timestamp) {
         return moment(timestamp).format('YYYY-MM-DD');
@@ -69,7 +97,7 @@
     }
   }
 </script>
-//fixme: ideaDetail style 과 동일하므로 공유하여 사용할 수있도록 함.
+
 <style scoped>
   .idea {
     background: #f0f0f0;
@@ -85,7 +113,9 @@
     max-width: 100%;
 
   }
-
+  #commentsWraper {
+    margin: 0 -10px;
+  }
   .idea .row {
     display: flex;
     align-items: center;
@@ -114,4 +144,3 @@
     margin-top: 7px;
   }
 </style>
-

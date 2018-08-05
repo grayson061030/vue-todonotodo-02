@@ -8,6 +8,7 @@ import Dash from './components/dash/Dash';
 import NewIdea from './components/dash/NewIdea';
 import UserIdeas from './components/dash/UserIdeas';
 import Settings from './components/dash/Settings';
+import IdeaDetail from './components/dash/IdeaDetail';
 
 Vue.use(VueRouter);
 
@@ -32,6 +33,14 @@ var router = new VueRouter({
           path: 'settings',
           component: Settings,
           meta: {requiresAuth: true }
+        },
+        {
+          path: 'idea/detail/:idea_id',
+          component: IdeaDetail
+        },
+        {
+          path: 'users/idea/detail/:idea_id',//when user's idea list after click title and redirect
+          redirect: 'idea/detail/:idea_id'
         }
       ]
     },

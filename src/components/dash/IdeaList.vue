@@ -72,8 +72,8 @@
 
 <style scoped>
   #ideasWraper {
-    margin: 0 -20px;
-  }
+     margin: 0 -20px;
+   }
 
   #ideasLoading {
     padding: 40px;
