@@ -28,9 +28,8 @@
       <button class="btn" @click="shareFacebook">
         <i class="fa fa-facebook-square" aria-hidden="true"><strong> share</strong></i>
       </button>
-      <button class="btn" @click="addComment">
-        <i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
-        add
+      <button class="btn" @click="showModal = true">
+        <i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>add
       </button>
       <strong class="pull-right">
         <i class="fa fa-calendar"></i> {{ideaDate(idea.created)}}
@@ -39,6 +38,37 @@
     </div>
     <div id="commentsWraper">
     <comment></comment>
+    </div>
+    <div v-if="showModal">
+      <transition name="modal">
+        <div class="modal-mask">
+          <div class="modal-wrapper">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" @click="showModal=false">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h4 class="modal-title" id="exampleModalLabel">New Comment</h4>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">
+                      <label for="message-text" class="control-label">Contents:</label>
+                      <textarea class="form-control" id="message-text" placeholder="write here ..."
+                                v-model="newComment.description"></textarea>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" @click="showModal = false">Close</button>
+                  <button type="button" class="btn btn-primary" @click="addComment">Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -66,7 +96,9 @@
           vote_down:[],
           vote_up:[],
           _id:''
-        }
+        },
+        showModal: false,
+        newComment: {}
       }
     },
     watch: {
@@ -84,8 +116,20 @@
         alertify.success('Shared to your facebook timeline!')
       },
       addComment: function(){
-        //Todo: 댓글용 모달 추가.
-        alertify.success('added your comments!')
+        this.showModal = false;
+        if(this.newComment.description.length > 0){
+          this.newComment.idea = this.idea._id;
+          this.$http.post('/comments',this.newComment)
+            .then(function (res) {
+              // this.$root.$on('newComment',res.body);
+              alertify.success('added your comment!');
+            });
+          this.initNewComment();
+        }
+      },
+      initNewComment: function(){
+        this.newComment.idea = '';
+        this.newComment.description = '';
       },
       ideaDate: function (timestamp) {
         return moment(timestamp).format('YYYY-MM-DD');
@@ -141,5 +185,22 @@
 
   .ideaFooter strong {
     margin-top: 7px;
+  }
+
+  .modal-mask {
+    position: fixed;
+    z-index: 9998;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    display: table;
+    transition: opacity .3s ease;
+  }
+
+  .modal-wrapper {
+    display: table-cell;
+    vertical-align: middle;
   }
 </style>

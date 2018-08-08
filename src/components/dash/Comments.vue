@@ -42,4 +42,7 @@
     border-bottom: 1px solid #81d4ff;
     padding: 10px 0px 0px;
   }
+  .pull-right {
+    margin-right: 10px;
+  }
 </style>
