@@ -46,7 +46,6 @@
 <script>
   import moment from 'moment';
   import Comment from './Comments';
-
   export default {
     name: "IdeaDetail",
     components: {

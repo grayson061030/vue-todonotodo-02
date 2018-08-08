@@ -5,14 +5,6 @@
           {{comment.description}}
         </div>
         <button class="btn">
-          <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-          {{comment.vote.up.length}}
-        </button>
-        <button class="btn">
-          <i class="fa fa-thumbs-down" aria-hidden="true"></i>
-          {{comment.vote.down.length}}
-        </button>
-        <button class="btn">
           <i class="fa fa-user"></i>
            <strong>{{comment.user.username}}</strong>
         </button>

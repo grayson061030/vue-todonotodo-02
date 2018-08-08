@@ -6,13 +6,14 @@ import Router from './routes';
 import VueResource from 'vue-resource';
 import Auth from './plugins/Auth';
 import store from './store';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'font-awesome/css/font-awesome.min.css';
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 Vue.use(VueResource);
 Vue.use(Auth);
 
 alertify.defaults.notifier.position = 'top-right';
-
 // common http request interceptors
 Vue.http.interceptors.push(function (request, next) {
   if(request.url[0] === '/'){
